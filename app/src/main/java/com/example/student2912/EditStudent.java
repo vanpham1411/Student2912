@@ -43,7 +43,6 @@ public class EditStudent extends AppCompatActivity {
 
                 Bundle res = new Bundle();
 
-
                 res.putString("mssv", edit_mssv.getText().toString());
                 res.putString("hoten",edit_hoten.getText().toString());
                 res.putString("ngaysinh", edit_ngaysinh.getText().toString());

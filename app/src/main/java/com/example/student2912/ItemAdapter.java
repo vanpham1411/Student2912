@@ -1,6 +1,7 @@
 package com.example.student2912;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +109,14 @@ public class ItemAdapter extends BaseAdapter implements Filterable {
     public void add(StudentItem std){
         list.add(std);
         notifyDataSetChanged();
+    }
+    public void update(StudentItem studentItem, int position){
+        list.get(position).setNgaysinh(studentItem.getNgaysinh());
+        list.get(position).setEmail(studentItem.getEmail());
+        list.get(position).setDiachi(studentItem.getDiachi());
+        list.get(position).setHoten(studentItem.getHoten());
+        notifyDataSetChanged();
+        Log.v("tag/","thay doi: "+studentItem.getMssv());
     }
 
     private class ViewHolder {

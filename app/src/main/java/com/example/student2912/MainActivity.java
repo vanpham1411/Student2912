@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private final int UPDATE = 101;
     private final int DELETE = 102;
     private final int ADD = 006;
+    private int item_update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
         myintent.putExtras(bundle);
         startActivityForResult(myintent,UPDATE);
 
+
     }
+
 
 
 //menu
@@ -216,17 +220,39 @@ public class MainActivity extends AppCompatActivity {
                 String sql = String.format("insert into sinhvien(mssv, hoten, ngaysinh, email, diachi) " +
                         "values('%s', '%s', '%s', '%s', '%s')", studentID, add_hoten, add_ngaysinh, add_email, add_diachi);
                 db.execSQL(sql);
-                StudentItem  tmp = new StudentItem(studentID, add_hoten, add_ngaysinh, add_email, add_diachi);
+                StudentItem tmp = new StudentItem(studentID, add_hoten, add_ngaysinh, add_email, add_diachi);
                 items.add(new StudentItem(studentID, add_hoten, add_ngaysinh, add_email, add_diachi));
-                adapter.add(items.get(items.size()-1));
-            }
-            else if(requestCode == UPDATE){
+                adapter.add(items.get(items.size() - 1));
 
+            }
+        }
+            else if(requestCode == UPDATE){
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle myAdd = data.getExtras();
+//                    String studentID = myAdd.getString("mssv");
+                    String update_hoten = myAdd.getString("hoten");
+                    String update_ngaysinh = myAdd.getString("ngaysinh");
+                    String update_email = myAdd.getString("email");
+                    String update_diachi = myAdd.getString("diachi");
+                    ContentValues cv = new ContentValues();
+                    cv.put("hoten", update_hoten); //These Fields should be your String values of actual column names
+                    cv.put("ngaysinh", update_ngaysinh);
+                    cv.put("email", update_email);
+                    cv.put("diachi", update_diachi);
+                    Log.v("tag/","get update: "+items.get(item_update).getMssv());
+                    db.update("sinhvien", cv, "mssv = ?", new String[]{items.get(item_update).getMssv()});
+                    items.get(item_update).setHoten(update_hoten);
+                    items.get(item_update).setDiachi(update_diachi);
+                    items.get(item_update).setEmail(update_email);
+                    items.get(item_update).setNgaysinh(update_ngaysinh);
+                    adapter.update(items.get(item_update),item_update);
+
+                }
             }
         }
 
 
-    }
+
 //context menu
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
@@ -241,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v("tag/","thu tu" + info.position);
 
         if(item.getItemId() == UPDATE){
+            item_update = info.position;
             go2Intent(items.get(info.position));
 
         }
