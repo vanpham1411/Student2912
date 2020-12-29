@@ -216,7 +216,9 @@ public class MainActivity extends AppCompatActivity {
                 String sql = String.format("insert into sinhvien(mssv, hoten, ngaysinh, email, diachi) " +
                         "values('%s', '%s', '%s', '%s', '%s')", studentID, add_hoten, add_ngaysinh, add_email, add_diachi);
                 db.execSQL(sql);
+                StudentItem  tmp = new StudentItem(studentID, add_hoten, add_ngaysinh, add_email, add_diachi);
                 items.add(new StudentItem(studentID, add_hoten, add_ngaysinh, add_email, add_diachi));
+                adapter.add(items.get(items.size()-1));
             }
             else if(requestCode == UPDATE){
 
@@ -243,19 +245,21 @@ public class MainActivity extends AppCompatActivity {
 
         }
         if(item.getItemId() == DELETE){
-            showMyAlertDialog(this,items.get(info.position));
+            showMyAlertDialog(this,info.position);
         }
         return super.onContextItemSelected(item);
     }
-    private void showMyAlertDialog(MainActivity mainActivity,StudentItem studentItem){
+    private void showMyAlertDialog(MainActivity mainActivity,int position){
         new AlertDialog.Builder(mainActivity)
             .setTitle("Terminator")
                 .setMessage("do you want to delete")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        items.remove(studentItem);
-                        db.delete("sinhvien","mssv=? ",new String[]{studentItem.getMssv()});
+                        items.remove(items.get(position));
+                        adapter.remove(position);
+                        listView.deferNotifyDataSetChanged();
+                        db.delete("sinhvien","mssv=? ",new String[]{items.get(position).getMssv()});
 
                     }
                 })
@@ -267,7 +271,18 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .create()
                 .show();
+
     }
+
+    @Override
+    protected void onRestart(){
+
+//        adapter = new ItemAdapter(this, items);
+//        listView = findViewById(R.id.list_view);
+//        listView.setAdapter(adapter);
+        super.onRestart();
+    }
+
     @Override
     protected void onDestroy() {
         db.close();

@@ -57,6 +57,7 @@ public class ItemAdapter extends BaseAdapter implements Filterable {
         viewHolder.hoten.setText(studentItem.hoten);
         viewHolder.mssv.setText(studentItem.mssv);
         viewHolder.email.setText(studentItem.email);
+        notifyDataSetChanged();
         return view;
     }
 
@@ -98,6 +99,15 @@ public class ItemAdapter extends BaseAdapter implements Filterable {
                 notifyDataSetChanged();
             }
         }
+    }
+
+    public void remove(int position){
+        list.remove (position);
+        notifyDataSetChanged ();
+    }
+    public void add(StudentItem std){
+        list.add(std);
+        notifyDataSetChanged();
     }
 
     private class ViewHolder {
