@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    tools:context=".EditStudent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:background="#FFAAAAAA"
+            android:text="Ma so sinh vien"
+            android:textSize="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="20172222"
+            android:textSize="28dp"
+            android:id="@+id/edit_mssv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:background="#FFAAAAAA"
+            android:textSize="28dp"
+            android:text="ho ten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_hoten"
+            android:textSize="28dp"
+            android:hint="ho ten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:background="#FFAAAAAA"
+            android:textSize="28dp"
+            android:text="ngay sinh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:textSize="28dp"
+            android:hint="ngay sinh"
+            android:id="@+id/edit_ngaysinh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:background="#FFAAAAAA"
+            android:text="dia chi"
+            android:textSize="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_diachi"
+            android:hint="dia chi"
+            android:textSize="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:background="#FFAAAAAA"
+            android:text="email"
+            android:textSize="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_email"
+            android:inputType="textEmailAddress"
+            android:hint="email"
+            android:textSize="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_register"
+            android:textSize="32dp"
+            android:text="register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</ScrollView>
