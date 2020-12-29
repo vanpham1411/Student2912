@@ -12,3 +12,4 @@ public void add(StudentItem std){
         list.add(std);
         notifyDataSetChanged();
     }
+ // update bị sai do gán sai layout
